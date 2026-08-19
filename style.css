@@ -1,235 +1,94 @@
-:root {
-    --bg-color: #050508;
-    --surface-color: #12121a;
-    --primary-neon: #00f0ff;
-    --secondary-neon: #8a2be2;
-    --text-main: #e0e0e0;
-    --font-stack: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+// --- Prompt Engineering Simulator Logic ---
+const promptData = {
+    basic: {
+        type: "Zero-Shot Prompt",
+        input: "Give me a diagram for water management.",
+        output: "Generating a generic vector image of urban water treatment plants and rain harvesting pipes."
+    },
+    engineered: {
+        type: "Role-Based Specific Prompt (C-R-I-S-P)",
+        input: "Act as an expert hydrologist. Generate a precise diagram for traditional 'dong' water management techniques. Show the diversion of river water through traditional channels, bypassing generic urban imagery.",
+        output: "Generating a detailed technical illustration of the 'dong' system, accurately mapping traditional river diversion pathways and agricultural integration."
+    }
+};
+
+const promptInputDisplay = document.getElementById('prompt-input');
+const aiOutputDisplay = document.getElementById('ai-output');
+const promptTypeLabel = document.getElementById('prompt-type');
+const toggleButton = document.getElementById('toggle-prompt-btn');
+
+let isEngineered = false;
+
+function updateSimulator() {
+    const data = isEngineered ? promptData.engineered : promptData.basic;
+    
+    // Fade out
+    promptInputDisplay.style.opacity = 0;
+    aiOutputDisplay.style.opacity = 0;
+    
+    setTimeout(() => {
+        promptTypeLabel.innerText = data.type;
+        promptInputDisplay.innerText = data.input;
+        aiOutputDisplay.innerText = data.output;
+        toggleButton.innerText = isEngineered ? "Revert to Basic Prompt" : "Apply C-R-I-S-P Framework";
+        
+        // Fade in
+        promptInputDisplay.style.opacity = 1;
+        aiOutputDisplay.style.opacity = 1;
+    }, 250);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
+toggleButton.addEventListener('click', () => {
+    isEngineered = !isEngineered;
+    updateSimulator();
+});
+
+
+// --- 3D Presentation Book Logic ---
+const pages = document.querySelectorAll('.page');
+let currentState = 1;
+const maxState = pages.length + 1;
+
+function initBook() {
+    // Stack pages correctly so page 1 is on top
+    for (let i = 0; i < pages.length; i++) {
+        pages[i].style.zIndex = pages.length - i;
+    }
 }
 
-body {
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    font-family: var(--font-stack);
-    line-height: 1.6;
-    overflow-x: hidden;
+function goNextPage() {
+    if (currentState < maxState) {
+        const currentPage = document.getElementById(`p${currentState}`);
+        currentPage.classList.add("flipped");
+        
+        // Swap z-index mid-animation so the back of the flipped page renders correctly over the left stack
+        setTimeout(() => {
+            currentPage.style.zIndex = currentState;
+        }, 600); 
+        
+        currentState++;
+    }
 }
 
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 5%;
-    background: rgba(5, 5, 8, 0.95);
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-    backdrop-filter: blur(10px);
+function goPrevPage() {
+    if (currentState > 1) {
+        currentState--;
+        const previousPage = document.getElementById(`p${currentState}`);
+        previousPage.classList.remove("flipped");
+        
+        // Immediately restore right-side stacking order before flipping back
+        previousPage.style.zIndex = pages.length - currentState + 1;
+    }
 }
 
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-neon);
-    letter-spacing: 2px;
-}
+// Cursor blinking effect
+setInterval(() => {
+    const cursor = document.querySelector('.cursor');
+    if(cursor) cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+}, 500);
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-}
-
-.nav-links a {
-    color: var(--text-main);
-    text-decoration: none;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover {
-    color: var(--primary-neon);
-}
-
-/* Hero Section */
-.hero-section {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: radial-gradient(circle at center, #12121a 0%, #050508 100%);
-}
-
-.hero-content h1 {
-    font-size: 4rem;
-    color: var(--primary-neon);
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
-}
-
-.btn-primary, .btn-secondary {
-    display: inline-block;
-    padding: 0.8rem 1.5rem;
-    margin-top: 1rem;
-    border: 1px solid var(--primary-neon);
-    background: transparent;
-    color: var(--primary-neon);
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: bold;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover, .btn-secondary:hover {
-    background: var(--primary-neon);
-    color: var(--bg-color);
-    box-shadow: 0 0 15px var(--primary-neon);
-}
-
-/* Content Sections */
-.content-section {
-    padding: 6rem 5%;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    color: var(--text-main);
-    margin-bottom: 2rem;
-}
-
-.grid-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-}
-
-.card {
-    background: var(--surface-color);
-    padding: 2rem;
-    border-radius: 8px;
-    border-top: 3px solid var(--secondary-neon);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-}
-
-.simulator-box {
-    background: #000;
-    padding: 1rem;
-    border-radius: 4px;
-    margin: 1rem 0;
-    border: 1px solid #333;
-    font-family: monospace;
-    font-size: 0.9rem;
-}
-
-.badge {
-    display: inline-block;
-    background: var(--secondary-neon);
-    color: #fff;
-    padding: 0.2rem 0.5rem;
-    border-radius: 3px;
-    margin-bottom: 1rem;
-    font-size: 0.8rem;
-}
-
-/* 3D Book Environment */
-.book-environment {
-    display: flex;
-    justify-content: center;
-    perspective: 1500px;
-    margin: 2rem 0;
-}
-
-.book-container {
-    width: 450px;
-    height: 320px;
-    position: relative;
-    transform-style: preserve-3d;
-}
-
-.page {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: left center;
-    transform-style: preserve-3d;
-    transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-
-.front, .back {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    backface-visibility: hidden;
-    padding: 2rem;
-    border-radius: 8px;
-}
-
-.back {
-    transform: rotateY(180deg);
-}
-
-.holographic-panel {
-    background: rgba(18, 18, 26, 0.9);
-    border: 1px solid var(--primary-neon);
-    box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.1), 0 0 20px rgba(0, 240, 255, 0.15);
-    color: var(--text-main);
-}
-
-.flipped {
-    transform: rotateY(-180deg);
-}
-
-.flex-center {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.neon-text {
-    color: var(--primary-neon);
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-}
-
-.slide-list {
-    margin-top: 1rem;
-    margin-left: 1.5rem;
-    line-height: 1.8;
-}
-
-.hierarchy-box {
-    text-align: center;
-    margin-top: 1.5rem;
-    background: rgba(0,0,0,0.3);
-    padding: 1rem;
-    border-radius: 4px;
-}
-
-.book-controls {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 3rem;
-}
-
-@media (max-width: 768px) {
-    .book-container { width: 320px; height: 420px; }
-    .hero-content h1 { font-size: 2.5rem; }
-}
+// Initialize everything on load
+window.onload = () => {
+    updateSimulator();
+    initBook();
+};
