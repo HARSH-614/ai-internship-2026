@@ -12,9 +12,8 @@
         <div class="logo">AI_Portfolio<span class="cursor">_</span></div>
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
-            <li><a href="#fundamentals">AI Fundamentals</a></li>
             <li><a href="#demonstrations">Demonstrations</a></li>
-            <li><a href="#assets">Report & PPT</a></li>
+            <li><a href="#presentation">3D Presentation</a></li>
         </ul>
     </nav>
 
@@ -23,8 +22,8 @@
         <div class="hero-content">
             <h1>Artificial Intelligence</h1>
             <h2>Basics & Practical Applications</h2>
-            <p>An interactive academic showcase by Sajal Baruah.</p>
-            <a href="#assets" class="btn-primary">Access Digital Report</a>
+            <p>An interactive academic showcase by Sajal Baruah, Biswanath College.</p>
+            <a href="#presentation" class="btn-primary">Launch 3D Viva Deck</a>
         </div>
     </header>
 
@@ -33,24 +32,132 @@
         <div class="container">
             <h2 class="section-title">Practical Demonstrations</h2>
             <div class="grid-cards">
-                <!-- Assam Educational Site Showcase -->
+                
+                <!-- Web Dev Showcase -->
                 <div class="card">
                     <h3>MDC-3: Land & People of Assam</h3>
-                    <p>An interactive, AI-assisted educational website featuring a futuristic UI, demonstrating practical prompt engineering for front-end web development.</p>
-                    <button class="btn-secondary" onclick="alert('Live demo launching soon!')">View Code & Demo</button>
+                    <p>An AI-assisted educational website featuring a futuristic dark UI, focusing on Assam's physical characteristics, drainage, and riverbank erosion.</p>
+                    <button class="btn-secondary" onclick="alert('Repository link available in the final submission.')">View Source</button>
                 </div>
                 
                 <!-- Prompt Engineering Simulator -->
                 <div class="card">
-                    <h3>Prompt Engineering Simulator</h3>
-                    <p>A live comparison of Zero-Shot vs. Few-Shot prompting techniques applied to data analysis.</p>
-                    <button class="btn-secondary">Run Simulation</button>
+                    <h3>Prompt Simulator: Visual Generation</h3>
+                    <p>A live comparison of Zero-Shot vs. Role-Based prompting techniques.</p>
+                    <div class="simulator-box">
+                        <div class="badge" id="prompt-type">Loading...</div>
+                        <p><strong>Input:</strong> <span id="prompt-input"></span></p>
+                        <p class="neon-text"><strong>Output:</strong> <span id="ai-output"></span></p>
+                    </div>
+                    <button id="toggle-prompt-btn" class="btn-secondary">Apply C-R-I-S-P Framework</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Script -->
+    <!-- 3D Presentation Section -->
+    <section id="presentation" class="content-section">
+        <div class="container">
+            <h2 class="section-title">Digital Presentation Deck</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Use the controls to flip through the interactive 3D presentation.</p>
+            
+            <div class="book-environment">
+                <div class="book-container" id="book">
+                    
+                    <!-- Page 1: Title & Agenda -->
+                    <div class="page" id="p1">
+                        <div class="front holographic-panel flex-center">
+                            <h2>AI Internship Defense</h2>
+                            <p class="neon-text">Practical Applications</p>
+                            <br>
+                            <p>Author: Sajal Baruah</p>
+                        </div>
+                        <div class="back holographic-panel flex-center">
+                            <h3>Agenda</h3>
+                            <ul class="slide-list">
+                                <li>Evolution & Types of AI</li>
+                                <li>Machine Learning Hierarchy</li>
+                                <li>Advanced Prompt Engineering</li>
+                                <li>Generative Media Tools</li>
+                                <li>AI Ethics & Conclusion</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Page 2: History & ML/DL -->
+                    <div class="page" id="p2">
+                        <div class="front holographic-panel">
+                            <h3>1. Core Foundations</h3>
+                            <ul class="slide-list">
+                                <li><strong>1950:</strong> Alan Turing proposes the "Turing Test"</li>
+                                <li><strong>1956:</strong> John McCarthy coins "Artificial Intelligence"</li>
+                                <li><strong>Types:</strong> Narrow, General, Super AI</li>
+                            </ul>
+                        </div>
+                        <div class="back holographic-panel">
+                            <h3>2. The Learning Hierarchy</h3>
+                            <div class="hierarchy-box">
+                                <p><strong>Artificial Intelligence</strong><br>(Machines simulating intellect)</p>
+                                <p>↓</p>
+                                <p><strong>Machine Learning</strong><br>(Learning from data without explicit rules)</p>
+                                <p>↓</p>
+                                <p><strong>Deep Learning</strong><br>(Multi-layered neural networks)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Page 3: Prompting & Education -->
+                    <div class="page" id="p3">
+                        <div class="front holographic-panel">
+                            <h3>3. Prompt Engineering</h3>
+                            <p>Mastering the C-R-I-S-P Framework:</p>
+                            <ul class="slide-list">
+                                <li><strong>C</strong>ontext & <strong>R</strong>ole</li>
+                                <li><strong>I</strong>nstruction & <strong>S</strong>pecifics</li>
+                                <li><strong>P</strong>arameters</li>
+                            </ul>
+                            <p class="note">Techniques: Zero-Shot, One-Shot, Few-Shot, Role-Based.</p>
+                        </div>
+                        <div class="back holographic-panel">
+                            <h3>4. AI in Education & Media</h3>
+                            <ul class="slide-list">
+                                <li><strong>Lesson Planning:</strong> E.g., Structuring 45-min Physics lessons on BJT/Semiconductors.</li>
+                                <li><strong>Image (DALL-E):</strong> S-S-L-R formula (Subject, Style, Lighting, Resolution).</li>
+                                <li><strong>Video/Audio:</strong> Runway ML, Pika Labs, ElevenLabs voice cloning.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Page 4: Ethics & Conclusion -->
+                    <div class="page" id="p4">
+                        <div class="front holographic-panel">
+                            <h3>5. Responsible AI</h3>
+                            <ul class="slide-list">
+                                <li><strong>Hallucinations:</strong> Verifying facts to prevent false outputs.</li>
+                                <li><strong>Deepfakes:</strong> Mitigating risks of manipulated video/audio.</li>
+                                <li><strong>Copyright:</strong> Ensuring original content creation and fair use.</li>
+                            </ul>
+                        </div>
+                        <div class="back holographic-panel flex-center">
+                            <h3>Conclusion</h3>
+                            <p>AI is a powerful co-pilot for development, research, and design.</p>
+                            <p class="neon-text" style="margin-top: 1rem;">Human Intelligence + AI Assistance = Limitless Potential.</p>
+                            <br>
+                            <h4>Thank You!</h4>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Book Controls -->
+            <div class="book-controls">
+                <button class="btn-secondary" onclick="goPrevPage()">&#8592; Previous Slide</button>
+                <button class="btn-primary" onclick="goNextPage()">Next Slide &#8594;</button>
+            </div>
+        </div>
+    </section>
+
     <script src="script.js"></script>
 </body>
 </html>
